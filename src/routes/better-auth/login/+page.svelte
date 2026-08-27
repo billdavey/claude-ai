@@ -10,6 +10,7 @@
 		FieldDescription
 	} from '$lib/components/ui/field/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
+	import { resolve } from '$app/paths';
 
 	let { form }: { form: ActionData } = $props();
 </script>
@@ -58,7 +59,10 @@
 								Login with Google
 							</Button>
 							<FieldDescription class="text-center">
-								Don't have an account? <a href="./register">Sign up</a>
+								Don't have an account? <a
+									href={resolve('/better-auth/register')}
+									class="text-blue-600 underline">Sign up</a
+								>
 							</FieldDescription>
 						</Field>
 					</FieldGroup>

@@ -19,9 +19,8 @@
 	const links = [
 		{ href: '/', label: 'Home' },
 		{ href: '/dashboard', label: 'Dashboard' },
-		{ href: '/profile', label: 'Profile' },
-		{ href: '/better-auth', label: 'Auth' },
-		{ href: '/playwright', label: 'Playwright' }
+		{ href: '/playwright', label: 'Playwright' },
+		{ href: '/profile', label: 'Profile' }
 	];
 
 	const isAuthPage = $derived(

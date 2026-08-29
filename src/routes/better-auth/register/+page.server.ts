@@ -34,6 +34,6 @@ export const actions: Actions = {
 			return fail(500, { message: 'Unexpected error' });
 		}
 
-		return redirect(302, '/better-auth');
+		return redirect(302, '/');
 	}
 };

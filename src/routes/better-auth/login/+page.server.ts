@@ -32,7 +32,7 @@ export const actions: Actions = {
 			return fail(500, { message: 'Unexpected error' });
 		}
 
-		return redirect(302, '/better-auth');
+		return redirect(302, '/');
 	},
 	signInSocial: async (event) => {
 		const formData = await event.request.formData();

@@ -7,18 +7,14 @@
 	let { data }: { data: PageServerData } = $props();
 </script>
 
-<div class="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-	<div class="w-full max-w-sm">
-		<Card.Root class="mx-auto w-full max-w-sm">
-			<Card.Header>
-				<Card.Title class="text-2xl">Hi, {data.user.name}!</Card.Title>
-				<Card.Description>Your user ID is {data.user.id}.</Card.Description>
-			</Card.Header>
-			<Card.Content>
-				<form method="post" action="?/signOut" use:enhance>
-					<Button type="submit" class="w-full">Sign out</Button>
-				</form>
-			</Card.Content>
-		</Card.Root>
-	</div>
-</div>
+<Card.Root class="mx-auto max-w-md rounded-xl border bg-card p-6 text-card-foreground shadow-sm">
+	<Card.Header>
+		<Card.Title class="text-2xl">Hi, {data.user.name}!</Card.Title>
+		<Card.Description>Your user ID is {data.user.id}.</Card.Description>
+	</Card.Header>
+	<Card.Content>
+		<form method="post" action="?/signOut" use:enhance>
+			<Button type="submit" class="w-full">Sign out</Button>
+		</form>
+	</Card.Content>
+</Card.Root>

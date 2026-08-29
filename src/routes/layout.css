@@ -2,6 +2,10 @@
 @import 'tw-animate-css';
 @import 'shadcn-svelte/tailwind.css';
 @import '@fontsource-variable/inter';
+@import "@fontsource-variable/noto-sans";
+@import "@fontsource-variable/manrope";
+@import "@fontsource-variable/geist-mono";
+@import "@fontsource-variable/noto-serif";
 
 @custom-variant dark (&:is(.dark *));
 @plugin '@tailwindcss/forms';
@@ -116,6 +120,8 @@
 	--radius-2xl: calc(var(--radius) * 1.8);
 	--radius-3xl: calc(var(--radius) * 2.2);
 	--radius-4xl: calc(var(--radius) * 2.6);
+	--font-heading: 'Geist Mono Variable', monospace;
+	--font-serif: 'Noto Serif Variable', serif;
 }
 
 @layer base {

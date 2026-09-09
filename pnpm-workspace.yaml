@@ -3,4 +3,4 @@ allowBuilds:
   better-sqlite3: true
   esbuild: true
 minimumReleaseAgeExclude:
-  - '@lucide/svelte@1.37.0'
+  - '@lucide/svelte@1.37.0 || 1.42.0'

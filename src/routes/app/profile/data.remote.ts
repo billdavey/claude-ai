@@ -143,7 +143,7 @@ export const createProfile = form(profileSchema, async (data, issue) => {
 		});
 	} catch (error) {
 		if (error instanceof APIError) {
-			throw new Error(error.message || 'Failed to update profile');
+			throw new Error(error.message || 'Failed to update profile', { cause: error });
 		}
 		throw error;
 	}

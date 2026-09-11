@@ -109,7 +109,7 @@
 	>
 		<Checkbox
 			class="self-center"
-			id="finder-pref-9k2-hard-disks-ljj"
+			id="marketing"
 			{...form.fields.marketing.as('checkbox', profile.marketing)}
 		/>
 		<div class="space-y-1 leading-none">

@@ -31,7 +31,9 @@ export const actions: Actions = {
 			});
 		} catch (error) {
 			if (error instanceof APIError) {
-				return fail(400, { message: 'Registration failed. Please check your details and try again.' });
+				return fail(400, {
+					message: 'Registration failed. Please check your details and try again.'
+				});
 			}
 			return fail(500, { message: 'Unexpected error' });
 		}

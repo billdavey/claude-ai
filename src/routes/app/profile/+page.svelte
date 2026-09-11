@@ -7,6 +7,7 @@
 	import PersonalTab from './tabs/PersonalTab.svelte';
 	import ProfessionalTab from './tabs/ProfessionalTab.svelte';
 	import PreferencesTab from './tabs/PreferencesTab.svelte';
+	import FormSuccessToast from './FormSuccessToast.svelte';
 
 	let { data } = $props();
 
@@ -102,7 +103,17 @@
 	{...createProfile.enhance(async ({ submit }) => {
 		const result = await submit();
 		if (result) {
-			toast(createProfile.result?.message ?? 'Profile updated successfully.');
+			toast.custom(FormSuccessToast, {
+				duration: 5000,
+				dismissible: true, // Allows users to swipe the toast away to close it
+				componentProps: {
+					formName: 'Profile',
+					message: createProfile.result?.message ?? 'Profile updated successfully.',
+					updatedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+				}
+				// onDismiss: (t) => console.log(`Toast with id ${t.id} has been dismissed`),
+				// onAutoClose: (t) => console.log(`Toast with id ${t.id} has been closed automatically`)
+			});
 		}
 	})}
 	class="flex w-2xl flex-col gap-6"

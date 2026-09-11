@@ -1,6 +1,5 @@
 <script lang="ts">
 	import * as Field from '$lib/components/ui/field';
-	import { Input } from '$lib/components/ui/input';
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { Checkbox } from '$lib/components/ui/checkbox';
 
@@ -57,7 +56,7 @@
 	let { form, profile, issues }: Props = $props();
 
 	let selectedLocale = $derived(profile.locale || '');
-	const triggerContent = $derived(
+	const localeTriggerContent = $derived(
 		locales.find((l) => l.value === selectedLocale)?.label ?? 'Select a language'
 	);
 
@@ -88,10 +87,9 @@
 		<Field.Label for="locale" class={localeIssues.length ? 'text-destructive' : ''}
 			>Language</Field.Label
 		>
-		<Input id="locale" {...form.fields.locale.as('hidden', selectedLocale ?? 'en')} />
-		<Select.Root type="single" name="localeSelector" bind:value={selectedLocale}>
-			<Select.Trigger class="w-45">
-				{triggerContent}
+		<Select.Root type="single" name="locale" bind:value={selectedLocale}>
+			<Select.Trigger id="locale" class="w-45">
+				{localeTriggerContent}
 			</Select.Trigger>
 			<Select.Content>
 				<Select.Group>
@@ -113,13 +111,8 @@
 		<Field.Label for="timezone" class={timezoneIssues.length ? 'text-destructive' : ''}
 			>Timezone</Field.Label
 		>
-		<Input
-			id="timezone"
-			{...form.fields.timezone.as('hidden', selectedTimezone ?? 'America/New_York')}
-			placeholder="America/New_York"
-		/>
-		<Select.Root type="single" name="timezoneSelector" bind:value={selectedTimezone}>
-			<Select.Trigger class="w-45">
+		<Select.Root type="single" name="timezone" bind:value={selectedTimezone}>
+			<Select.Trigger id="timezone" class="w-45">
 				{timezoneTriggerContent}
 			</Select.Trigger>
 			<Select.Content>
@@ -142,13 +135,8 @@
 	<Field.Field>
 		<Field.Label for="theme" class={themeIssues.length ? 'text-destructive' : ''}>Theme</Field.Label
 		>
-		<Input
-			id="theme"
-			{...form.fields.theme.as('hidden', selectedTheme ?? '')}
-			placeholder="system"
-		/>
-		<Select.Root type="single" name="themeSelector" bind:value={selectedTheme}>
-			<Select.Trigger class="w-45">
+		<Select.Root type="single" name="theme" bind:value={selectedTheme}>
+			<Select.Trigger id="theme" class="w-45">
 				{themeTriggerContent}
 			</Select.Trigger>
 			<Select.Content>

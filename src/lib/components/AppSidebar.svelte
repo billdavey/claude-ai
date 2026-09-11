@@ -15,7 +15,7 @@
 		{ href: '/app/dashboard', label: 'Dashboard' },
 		{ href: '/app/playwright', label: 'Playwright' },
 		{ href: '/app/profile', label: 'Profile' }
-	];
+	] as const;
 </script>
 
 <Sidebar side="left">
@@ -24,7 +24,7 @@
 			<SidebarMenu>
 				{#each links as link (link.href)}
 					<SidebarMenuItem>
-						<a href={resolve(link.href as any)} style="display: contents;">
+						<a href={resolve(link.href)} style="display: contents;">
 							<SidebarMenuButton isActive={page.url.pathname === link.href}>
 								{link.label}
 							</SidebarMenuButton>

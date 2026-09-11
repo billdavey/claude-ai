@@ -75,7 +75,7 @@ export function getDefaultProfileFields(): ProfileFields {
  * @param user - The user object
  * @returns true if any profile fields are set beyond defaults
  */
-export function hasProfileData(user: any): boolean {
+export function hasProfileData(user: Partial<ProfileFields> | null | undefined): boolean {
 	if (!user) return false;
 	return !!(
 		user.bio ||
@@ -105,7 +105,9 @@ export function hasProfileData(user: any): boolean {
  * const user = locals.user; // from Better Auth
  * const profileData = extractProfileFields(user);
  */
-export function extractProfileFields(user: any): Partial<ProfileFields> {
+export function extractProfileFields(
+	user: Partial<ProfileFields> | null | undefined
+): Partial<ProfileFields> {
 	if (!user) return {};
 
 	return {

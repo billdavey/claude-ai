@@ -27,7 +27,7 @@
 		bio: data.profile?.bio ?? '',
 		phoneNumber: data.profile?.phoneNumber ?? '',
 		secondaryEmail: data.profile?.secondaryEmail ?? '',
-		dateOfBirth: Number(data.profile?.dateOfBirth) || 0,
+		dateOfBirth: toDateInputValue(data.profile?.dateOfBirth),
 		location: data.profile?.location ?? '',
 		company: data.profile?.company ?? '',
 		jobTitle: data.profile?.jobTitle ?? '',
@@ -93,6 +93,12 @@
 	const preferencesTabHasErrors = $derived(
 		localeIssues.length > 0 || timezoneIssues.length > 0 || themeIssues.length > 0
 	);
+
+	function toDateInputValue(ms: number | null | undefined): string {
+		const value = Number(ms);
+		if (!value) return '';
+		return new Date(value).toISOString().slice(0, 10);
+	}
 </script>
 
 <h1 class="text-2xl font-bold tracking-tight">Profile</h1>

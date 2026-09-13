@@ -27,7 +27,7 @@
 		bio: data.profile?.bio ?? '',
 		phoneNumber: data.profile?.phoneNumber ?? '',
 		secondaryEmail: data.profile?.secondaryEmail ?? '',
-		dateOfBirth: data.profile?.dateOfBirth ?? 0,
+		dateOfBirth: data.profile?.dateOfBirth ?? '',
 		location: data.profile?.location ?? '',
 		company: data.profile?.company ?? '',
 		jobTitle: data.profile?.jobTitle ?? '',

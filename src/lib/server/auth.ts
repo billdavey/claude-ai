@@ -7,10 +7,14 @@ import { getRequestEvent } from '$app/server';
 import { db } from '$lib/server/db';
 import { sendEmail } from '$lib/server/email';
 
+const isNeon = env.DATABASE_PROVIDER === 'neon';
+
 export const auth = betterAuth({
 	baseURL: env.ORIGIN,
 	secret: env.BETTER_AUTH_SECRET,
-	database: drizzleAdapter(db, { provider: 'sqlite' }),
+	database: drizzleAdapter(db, {
+		provider: isNeon ? 'pg' : 'sqlite'
+	}),
 	emailAndPassword: { enabled: true },
 	socialProviders: {
 		github: {

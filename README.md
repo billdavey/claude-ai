@@ -44,3 +44,5 @@ You can preview the production build with `npm run preview`.
 allowBuilds:
 better-sqlite3: true
 esbuild: true
+
+## Test preview integration and deployment

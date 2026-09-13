@@ -8,6 +8,7 @@
 	import ProfessionalTab from './tabs/ProfessionalTab.svelte';
 	import PreferencesTab from './tabs/PreferencesTab.svelte';
 	import FormSuccessToast from './FormSuccessToast.svelte';
+	import { toDateInputValue } from '$lib/utils/index';
 
 	let { data } = $props();
 
@@ -93,12 +94,6 @@
 	const preferencesTabHasErrors = $derived(
 		localeIssues.length > 0 || timezoneIssues.length > 0 || themeIssues.length > 0
 	);
-
-	function toDateInputValue(ms: number | null | undefined): string {
-		const value = Number(ms);
-		if (!value) return '';
-		return new Date(value).toISOString().slice(0, 10);
-	}
 </script>
 
 <h1 class="text-2xl font-bold tracking-tight">Profile</h1>

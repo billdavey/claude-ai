@@ -1,13 +1,5 @@
 import { relations } from 'drizzle-orm';
-import {
-	boolean,
-	index,
-	integer,
-	pgTable,
-	text,
-	timestamp,
-	uniqueIndex
-} from 'drizzle-orm/pg-core';
+import { boolean, date, index, pgTable, text, timestamp, uniqueIndex } from 'drizzle-orm/pg-core';
 
 export const user = pgTable('user', {
 	id: text('id').primaryKey(),
@@ -23,7 +15,7 @@ export const user = pgTable('user', {
 	bio: text('bio').default('').notNull(),
 	phoneNumber: text('phone_number').default('').notNull(),
 	secondaryEmail: text('secondary_email').default('').notNull(),
-	dateOfBirth: integer('date_of_birth').default(0).notNull(),
+	dateOfBirth: date('date_of_birth', { mode: 'string' }).notNull(),
 	location: text('location').default('').notNull(),
 	company: text('company').default('').notNull(),
 	jobTitle: text('job_title').default('').notNull(),

@@ -8,6 +8,20 @@
       "when": 1789262073500,
       "tag": "0000_mysterious_retro_girl",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789277484536,
+      "tag": "0001_hard_wrecker",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789277820791,
+      "tag": "0002_classy_psylocke",
+      "breakpoints": true
     }
   ]
 }

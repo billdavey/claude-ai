@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { boolean, date, index, pgTable, text, timestamp, uniqueIndex } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, boolean, bigint, index, uniqueIndex } from 'drizzle-orm/pg-core';
 
 export const user = pgTable('user', {
 	id: text('id').primaryKey(),
@@ -7,15 +7,18 @@ export const user = pgTable('user', {
 	email: text('email').notNull().unique(),
 	emailVerified: boolean('email_verified').default(false).notNull(),
 	image: text('image'),
-	createdAt: timestamp('created_at', { mode: 'date', withTimezone: true }).defaultNow().notNull(),
-	updatedAt: timestamp('updated_at', { mode: 'date', withTimezone: true }).defaultNow().notNull(),
+	createdAt: timestamp('created_at').defaultNow().notNull(),
+	updatedAt: timestamp('updated_at')
+		.defaultNow()
+		.$onUpdate(() => /* @__PURE__ */ new Date())
+		.notNull(),
 	username: text('username').unique(),
 	displayUsername: text('display_username'),
 	marketing: boolean('marketing').default(false).notNull(),
 	bio: text('bio').default('').notNull(),
 	phoneNumber: text('phone_number').default('').notNull(),
 	secondaryEmail: text('secondary_email').default('').notNull(),
-	dateOfBirth: date('date_of_birth', { mode: 'string' }).notNull(),
+	dateOfBirth: bigint('date_of_birth', { mode: 'number' }).default(0).notNull(),
 	location: text('location').default('').notNull(),
 	company: text('company').default('').notNull(),
 	jobTitle: text('job_title').default('').notNull(),
@@ -31,10 +34,12 @@ export const session = pgTable(
 	'session',
 	{
 		id: text('id').primaryKey(),
-		expiresAt: timestamp('expires_at', { mode: 'date', withTimezone: true }).notNull(),
+		expiresAt: timestamp('expires_at').notNull(),
 		token: text('token').notNull().unique(),
-		createdAt: timestamp('created_at', { mode: 'date', withTimezone: true }).defaultNow().notNull(),
-		updatedAt: timestamp('updated_at', { mode: 'date', withTimezone: true }).defaultNow().notNull(),
+		createdAt: timestamp('created_at').defaultNow().notNull(),
+		updatedAt: timestamp('updated_at')
+			.$onUpdate(() => /* @__PURE__ */ new Date())
+			.notNull(),
 		ipAddress: text('ip_address'),
 		userAgent: text('user_agent'),
 		userId: text('user_id')
@@ -57,18 +62,14 @@ export const account = pgTable(
 		accessToken: text('access_token'),
 		refreshToken: text('refresh_token'),
 		idToken: text('id_token'),
-		accessTokenExpiresAt: timestamp('access_token_expires_at', {
-			mode: 'date',
-			withTimezone: true
-		}),
-		refreshTokenExpiresAt: timestamp('refresh_token_expires_at', {
-			mode: 'date',
-			withTimezone: true
-		}),
+		accessTokenExpiresAt: timestamp('access_token_expires_at'),
+		refreshTokenExpiresAt: timestamp('refresh_token_expires_at'),
 		scope: text('scope'),
 		password: text('password'),
-		createdAt: timestamp('created_at', { mode: 'date', withTimezone: true }).defaultNow().notNull(),
-		updatedAt: timestamp('updated_at', { mode: 'date', withTimezone: true }).defaultNow().notNull()
+		createdAt: timestamp('created_at').defaultNow().notNull(),
+		updatedAt: timestamp('updated_at')
+			.$onUpdate(() => /* @__PURE__ */ new Date())
+			.notNull()
 	},
 	(table) => [
 		uniqueIndex('account_issuer_accountId_uidx').on(table.issuer, table.accountId),
@@ -82,9 +83,12 @@ export const verification = pgTable(
 		id: text('id').primaryKey(),
 		identifier: text('identifier').notNull(),
 		value: text('value').notNull(),
-		expiresAt: timestamp('expires_at', { mode: 'date', withTimezone: true }).notNull(),
-		createdAt: timestamp('created_at', { mode: 'date', withTimezone: true }).defaultNow().notNull(),
-		updatedAt: timestamp('updated_at', { mode: 'date', withTimezone: true }).defaultNow().notNull()
+		expiresAt: timestamp('expires_at').notNull(),
+		createdAt: timestamp('created_at').defaultNow().notNull(),
+		updatedAt: timestamp('updated_at')
+			.defaultNow()
+			.$onUpdate(() => /* @__PURE__ */ new Date())
+			.notNull()
 	},
 	(table) => [index('verification_identifier_idx').on(table.identifier)]
 );

@@ -1,0 +1,117 @@
+import { relations } from 'drizzle-orm';
+import {
+	boolean,
+	index,
+	integer,
+	pgTable,
+	text,
+	timestamp,
+	uniqueIndex
+} from 'drizzle-orm/pg-core';
+
+export const user = pgTable('user', {
+	id: text('id').primaryKey(),
+	name: text('name').notNull(),
+	email: text('email').notNull().unique(),
+	emailVerified: boolean('email_verified').default(false).notNull(),
+	image: text('image'),
+	createdAt: timestamp('created_at', { mode: 'date', withTimezone: true }).defaultNow().notNull(),
+	updatedAt: timestamp('updated_at', { mode: 'date', withTimezone: true }).defaultNow().notNull(),
+	username: text('username').unique(),
+	displayUsername: text('display_username'),
+	marketing: boolean('marketing').default(false).notNull(),
+	bio: text('bio').default('').notNull(),
+	phoneNumber: text('phone_number').default('').notNull(),
+	secondaryEmail: text('secondary_email').default('').notNull(),
+	dateOfBirth: integer('date_of_birth').default(0).notNull(),
+	location: text('location').default('').notNull(),
+	company: text('company').default('').notNull(),
+	jobTitle: text('job_title').default('').notNull(),
+	website: text('website').default('').notNull(),
+	locale: text('locale').default('').notNull(),
+	timezone: text('timezone').default('').notNull(),
+	theme: text('theme').default('').notNull(),
+	emailNotifications: boolean('email_notifications').default(true).notNull(),
+	pushNotifications: boolean('push_notifications').default(false).notNull()
+});
+
+export const session = pgTable(
+	'session',
+	{
+		id: text('id').primaryKey(),
+		expiresAt: timestamp('expires_at', { mode: 'date', withTimezone: true }).notNull(),
+		token: text('token').notNull().unique(),
+		createdAt: timestamp('created_at', { mode: 'date', withTimezone: true }).defaultNow().notNull(),
+		updatedAt: timestamp('updated_at', { mode: 'date', withTimezone: true }).defaultNow().notNull(),
+		ipAddress: text('ip_address'),
+		userAgent: text('user_agent'),
+		userId: text('user_id')
+			.notNull()
+			.references(() => user.id, { onDelete: 'cascade' })
+	},
+	(table) => [index('session_userId_idx').on(table.userId)]
+);
+
+export const account = pgTable(
+	'account',
+	{
+		id: text('id').primaryKey(),
+		issuer: text('issuer').notNull(),
+		accountId: text('account_id').notNull(),
+		providerId: text('provider_id').notNull(),
+		userId: text('user_id')
+			.notNull()
+			.references(() => user.id, { onDelete: 'cascade' }),
+		accessToken: text('access_token'),
+		refreshToken: text('refresh_token'),
+		idToken: text('id_token'),
+		accessTokenExpiresAt: timestamp('access_token_expires_at', {
+			mode: 'date',
+			withTimezone: true
+		}),
+		refreshTokenExpiresAt: timestamp('refresh_token_expires_at', {
+			mode: 'date',
+			withTimezone: true
+		}),
+		scope: text('scope'),
+		password: text('password'),
+		createdAt: timestamp('created_at', { mode: 'date', withTimezone: true }).defaultNow().notNull(),
+		updatedAt: timestamp('updated_at', { mode: 'date', withTimezone: true }).defaultNow().notNull()
+	},
+	(table) => [
+		uniqueIndex('account_issuer_accountId_uidx').on(table.issuer, table.accountId),
+		index('account_userId_idx').on(table.userId)
+	]
+);
+
+export const verification = pgTable(
+	'verification',
+	{
+		id: text('id').primaryKey(),
+		identifier: text('identifier').notNull(),
+		value: text('value').notNull(),
+		expiresAt: timestamp('expires_at', { mode: 'date', withTimezone: true }).notNull(),
+		createdAt: timestamp('created_at', { mode: 'date', withTimezone: true }).defaultNow().notNull(),
+		updatedAt: timestamp('updated_at', { mode: 'date', withTimezone: true }).defaultNow().notNull()
+	},
+	(table) => [index('verification_identifier_idx').on(table.identifier)]
+);
+
+export const userRelations = relations(user, ({ many }) => ({
+	sessions: many(session),
+	accounts: many(account)
+}));
+
+export const sessionRelations = relations(session, ({ one }) => ({
+	user: one(user, {
+		fields: [session.userId],
+		references: [user.id]
+	})
+}));
+
+export const accountRelations = relations(account, ({ one }) => ({
+	user: one(user, {
+		fields: [account.userId],
+		references: [user.id]
+	})
+}));

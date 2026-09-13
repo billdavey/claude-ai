@@ -27,9 +27,7 @@
 		bio: data.profile?.bio ?? '',
 		phoneNumber: data.profile?.phoneNumber ?? '',
 		secondaryEmail: data.profile?.secondaryEmail ?? '',
-		dateOfBirth: data.profile?.dateOfBirth
-			? new Date(Number(data.profile.dateOfBirth)).toISOString().slice(0, 10)
-			: '',
+		dateOfBirth: data.profile?.dateOfBirth ?? 0,
 		location: data.profile?.location ?? '',
 		company: data.profile?.company ?? '',
 		jobTitle: data.profile?.jobTitle ?? '',

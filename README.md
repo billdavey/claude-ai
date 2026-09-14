@@ -45,4 +45,43 @@ allowBuilds:
 better-sqlite3: true
 esbuild: true
 
-## Test preview integration and deployment
+## Syncing remote main to local main
+
+You do not need to merge manually in both places. The GitHub merge updates origin/main; sync your local repository afterward:
+
+```sh
+git switch main
+git pull --ff-only origin main
+```
+
+Then verify:
+
+```sh
+git status
+git log --oneline -5
+```
+
+If you no longer need the feature branch locally:
+
+```sh
+git branch -d feature/profile-update
+```
+
+GitHub may automatically delete the remote feature branch. If not:
+
+```sh
+git push origin --delete feature/profile-update
+```
+
+Use git pull --ff-only to avoid creating an unnecessary local merge commit.
+
+Git updates your local main only if it can move the branch pointer forward without creating a merge commit.
+
+If your local branch has diverged from origin/main, Git stops and reports an error instead of automatically merging. This keeps history linear and avoids an unexpected merge commit.
+
+To inspect the divergence:
+
+```sh
+git status
+git log --oneline --graph --decorate --all
+```

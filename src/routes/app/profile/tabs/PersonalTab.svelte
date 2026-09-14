@@ -2,16 +2,10 @@
 	import * as Field from '$lib/components/ui/field';
 	import { Input } from '$lib/components/ui/input';
 	import { Textarea } from '$lib/components/ui/textarea';
-
-	type FormField = {
-		as: (type: string, value: unknown) => Record<string, unknown>;
-	};
+	import type { createProfile } from '../data.remote';
 
 	type PersonalForm = {
-		fields: Record<
-			'bio' | 'phoneNumber' | 'secondaryEmail' | 'dateOfBirth' | 'location',
-			FormField
-		>;
+		fields: typeof createProfile.fields;
 	};
 
 	type Issue = { message: string };

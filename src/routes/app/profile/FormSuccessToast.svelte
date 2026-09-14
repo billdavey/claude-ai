@@ -1,7 +1,7 @@
 <!-- FormSuccessToast.svelte -->
 <script lang="ts">
 	import { toast } from 'svelte-sonner';
-	import { CircleCheck, RotateCcw, X } from '@lucide/svelte';
+	import { CircleCheck, X } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 
 	// Svelte 5 Runes for properties

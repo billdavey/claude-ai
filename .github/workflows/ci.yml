@@ -15,6 +15,7 @@ concurrency:
 
 env:
   DATABASE_URL: local.db
+  DATABASE_PROVIDER: sqlite
   ORIGIN: http://localhost:4173
   BETTER_AUTH_SECRET: ci-only-secret-that-is-long-enough
   GITHUB_CLIENT_ID: ci-placeholder
@@ -48,11 +49,11 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-      - name: Unit tests
-        run: pnpm test:unit -- --run
-
       - name: Install Playwright browser
         run: pnpm exec playwright install --with-deps chromium
+
+      - name: Unit tests
+        run: pnpm test:unit -- --run
 
       - name: End-to-end tests
         run: pnpm exec playwright test

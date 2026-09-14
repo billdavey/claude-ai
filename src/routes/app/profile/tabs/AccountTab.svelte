@@ -2,22 +2,14 @@
 	import * as Field from '$lib/components/ui/field';
 	import { Input } from '$lib/components/ui/input';
 	import { Checkbox } from '$lib/components/ui/checkbox';
-
-	interface FormField {
-		as: (type: 'text' | 'email' | 'checkbox', value: string | boolean) => Record<string, unknown>;
-	}
+	import type { createProfile } from '../data.remote';
 
 	interface Issue {
 		message: string;
 	}
 
 	interface AccountForm {
-		fields: {
-			name: FormField;
-			username: FormField;
-			email: FormField;
-			marketing: FormField;
-		};
+		fields: typeof createProfile.fields;
 	}
 
 	interface Props {
@@ -111,6 +103,7 @@
 			class="self-center"
 			id="marketing"
 			{...form.fields.marketing.as('checkbox', profile.marketing)}
+			type={undefined}
 		/>
 		<div class="space-y-1 leading-none">
 			<Field.Label for="marketing">Marketing Emails</Field.Label>

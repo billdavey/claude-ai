@@ -2,16 +2,10 @@
 	import * as Field from '$lib/components/ui/field';
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { Checkbox } from '$lib/components/ui/checkbox';
-
-	type FormField = {
-		as: (type: string, value: unknown) => Record<string, unknown>;
-	};
+	import type { createProfile } from '../data.remote';
 
 	type PreferencesForm = {
-		fields: Record<
-			'locale' | 'timezone' | 'theme' | 'emailNotifications' | 'pushNotifications',
-			FormField
-		>;
+		fields: typeof createProfile.fields;
 	};
 
 	type Issue = { message: string };
@@ -162,6 +156,7 @@
 			class="self-center"
 			id="emailNotifications"
 			{...form.fields.emailNotifications.as('checkbox', profile.emailNotifications)}
+			type={undefined}
 		/>
 		<div class="space-y-1 leading-none">
 			<Field.Label for="emailNotifications">Email Notifications</Field.Label>
@@ -176,6 +171,7 @@
 			class="self-center"
 			id="pushNotifications"
 			{...form.fields.pushNotifications.as('checkbox', profile.pushNotifications)}
+			type={undefined}
 		/>
 		<div class="space-y-1 leading-none">
 			<Field.Label for="pushNotifications">Push Notifications</Field.Label>

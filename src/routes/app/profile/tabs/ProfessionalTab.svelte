@@ -1,17 +1,10 @@
 <script lang="ts">
 	import * as Field from '$lib/components/ui/field';
 	import { Input } from '$lib/components/ui/input';
-
-	type FormField = {
-		as: (type: string, value: string) => Record<string, unknown>;
-	};
+	import type { createProfile } from '../data.remote';
 
 	type ProfileForm = {
-		fields: {
-			company: FormField;
-			jobTitle: FormField;
-			website: FormField;
-		};
+		fields: typeof createProfile.fields;
 	};
 
 	type FormIssue = {

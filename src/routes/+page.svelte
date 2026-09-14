@@ -18,5 +18,3 @@
 		</form>
 	</Card.Content>
 </Card.Root>
-
-<h1>Welcome, {data.user.name}!</h1>
